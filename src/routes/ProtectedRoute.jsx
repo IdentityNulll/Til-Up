@@ -8,17 +8,17 @@ const ProtectedRoute = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-obsidian-950">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3">
         <Spinner />
-        <p className="text-sm text-gray-500">{uz.auth.connecting}</p>
+        <p className="text-sm text-content-muted">{uz.auth.connecting}</p>
       </div>
     );
   }
 
   if (error || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-obsidian-950 px-6 text-center">
-        <p className="text-sm text-gray-500">{error || uz.auth.failed}</p>
+      <div className="flex min-h-screen items-center justify-center px-6 text-center">
+        <p className="text-sm text-content-muted">{error || uz.auth.failed}</p>
       </div>
     );
   }

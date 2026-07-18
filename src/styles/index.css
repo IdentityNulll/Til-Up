@@ -7,6 +7,10 @@
     color-scheme: dark;
   }
 
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   html,
   body,
   #root {
@@ -14,17 +18,79 @@
   }
 
   body {
-    @apply bg-obsidian-950 text-gray-100 antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-ink-base text-content antialiased;
+    font-family: 'Manrope', system-ui, sans-serif;
+    /* Ambient depth: two soft accent glows fading into the obsidian base. */
+    background-color: #07080c;
+    background-image:
+      radial-gradient(60rem 60rem at 50% -20%, rgba(25, 205, 142, 0.1), transparent 60%),
+      radial-gradient(48rem 48rem at 100% 8%, rgba(47, 212, 196, 0.06), transparent 55%),
+      radial-gradient(52rem 52rem at 0% 100%, rgba(25, 205, 142, 0.05), transparent 55%);
+    background-repeat: no-repeat;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-content-strong;
+  }
+
+  ::selection {
+    background: rgba(25, 205, 142, 0.28);
+    color: #f5f7fa;
+  }
+}
+
+@layer components {
+  /* Card with a subtle top-lit gradient hairline border. */
+  .surface {
+    @apply relative rounded-xl2 border border-ink-750/80 bg-ink-900/80 shadow-card;
+  }
+
+  .surface-raised {
+    @apply relative rounded-xl2 border border-ink-700 bg-ink-850 shadow-raised;
+  }
+
+  /* Glassy chrome used for the top/bottom bars. */
+  .glass {
+    @apply border-ink-750/70 bg-ink-950/70 backdrop-blur-xl;
+  }
+
+  .text-gradient {
+    @apply bg-accent-grad bg-clip-text text-transparent;
+  }
+
+  /* Thin gradient divider. */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
   }
 }
 
 @layer utilities {
   .safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
   }
 
   .safe-top {
     padding-top: env(safe-area-inset-top);
+  }
+
+  /* Fine grain overlay for texture on large dark surfaces. */
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

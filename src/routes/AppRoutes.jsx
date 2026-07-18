@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import AppShell from '../layouts/AppShell.jsx';
-import OnboardingPage from '../pages/OnboardingPage.jsx';
+import OnboardingPage from '../pages/onboarding/OnboardingPage.jsx';
 import RoadmapPage from '../pages/RoadmapPage.jsx';
 import ProfilePage from '../pages/ProfilePage.jsx';
 import StatisticsPage from '../pages/StatisticsPage.jsx';

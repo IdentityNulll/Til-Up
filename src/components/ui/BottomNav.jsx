@@ -1,29 +1,48 @@
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { RouteIcon, ChartIcon, UserIcon } from './icons.jsx';
 import { uz } from '../../locales/uz.js';
 
 const NAV_ITEMS = [
-  { to: '/', label: uz.nav.roadmap, icon: '🗺️' },
-  { to: '/statistics', label: uz.nav.statistics, icon: '📊' },
-  { to: '/profile', label: uz.nav.profile, icon: '👤' },
+  { to: '/', label: uz.nav.roadmap, Icon: RouteIcon },
+  { to: '/statistics', label: uz.nav.statistics, Icon: ChartIcon },
+  { to: '/profile', label: uz.nav.profile, Icon: UserIcon },
 ];
 
 const BottomNav = () => {
   return (
-    <nav className="safe-bottom fixed inset-x-0 bottom-0 z-10 border-t border-obsidian-700 bg-obsidian-900/95 backdrop-blur">
-      <div className="mx-auto flex max-w-md items-center justify-around py-2">
-        {NAV_ITEMS.map((item) => (
+    <nav className="safe-bottom glass fixed inset-x-0 bottom-0 z-20 border-t">
+      <div className="mx-auto flex max-w-md items-stretch justify-around px-2 pt-1.5">
+        {NAV_ITEMS.map(({ to, label, Icon }) => (
           <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.to === '/'}
-            className={({ isActive }) =>
-              `flex flex-col items-center gap-1 rounded-xl2 px-4 py-2 text-xs font-medium transition-colors ${
-                isActive ? 'text-accent' : 'text-gray-500'
-              }`
-            }
+            key={to}
+            to={to}
+            end={to === '/'}
+            className="relative flex flex-1 flex-col items-center gap-1 py-1.5"
           >
-            <span className="text-xl leading-none">{item.icon}</span>
-            {item.label}
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute -top-1.5 h-1 w-8 rounded-full bg-accent-grad shadow-glow-sm"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <Icon
+                  width={22}
+                  height={22}
+                  className={`transition-colors ${isActive ? 'text-accent-bright' : 'text-content-faint'}`}
+                />
+                <span
+                  className={`text-[11px] font-semibold transition-colors ${
+                    isActive ? 'text-content-strong' : 'text-content-faint'
+                  }`}
+                >
+                  {label}
+                </span>
+              </>
+            )}
           </NavLink>
         ))}
       </div>

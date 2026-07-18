@@ -7,9 +7,9 @@ const AppShell = () => {
   const location = useLocation();
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col bg-obsidian-950">
-      <TopBar title="TilUp" />
-      <main className="flex-1 px-5 py-6 pb-24">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col">
+      <TopBar />
+      <main className="flex-1 px-4 py-5 pb-28">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

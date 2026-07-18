@@ -1,6 +1,7 @@
-const Spinner = ({ className = '' }) => (
+const Spinner = ({ className = '', size = 32 }) => (
   <div
-    className={`h-8 w-8 animate-spin rounded-full border-2 border-obsidian-600 border-t-accent ${className}`}
+    style={{ width: size, height: size }}
+    className={`animate-spin rounded-full border-2 border-ink-700 border-t-accent ${className}`}
   />
 );
 
