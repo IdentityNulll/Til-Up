@@ -1,9 +1,10 @@
 import { FlameIcon, SparkIcon } from './icons.jsx';
 import Logo from './Logo.jsx';
+import HeartsIndicator from './HeartsIndicator.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
 
 const Stat = ({ icon, value, tint }) => (
-  <div className="flex items-center gap-1.5 rounded-full border border-ink-750 bg-ink-900/70 px-2.5 py-1">
+  <div className="flex items-center gap-1 rounded-full border border-ink-750 bg-ink-900/70 px-2 py-1">
     <span className={tint}>{icon}</span>
     <span className="text-sm font-bold text-content-strong">{value}</span>
   </div>
@@ -15,8 +16,9 @@ const TopBar = () => {
   return (
     <header className="safe-top glass sticky top-0 z-20 border-b">
       <div className="mx-auto flex max-w-md items-center justify-between px-4 py-3">
-        <Logo size={30} />
-        <div className="flex items-center gap-2">
+        <Logo size={28} />
+        <div className="flex items-center gap-1.5">
+          <HeartsIndicator hearts={user?.hearts ?? 5} max={user?.maxHearts ?? 5} />
           <Stat
             icon={<FlameIcon width={15} height={15} />}
             value={user?.streakCount ?? 0}

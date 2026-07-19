@@ -39,6 +39,11 @@ export const uz = {
     resultPath: 'Sizning yoʻlingiz',
     resultCta: 'Oʻrganishni boshlash',
   },
+  roadmap: {
+    yourJourney: 'Sizning yoʻlingiz',
+    continue: 'Davom etish',
+    start: 'Boshlash',
+  },
   pages: {
     roadmap: 'Yoʻnalish xaritasi',
     profile: 'Profil',

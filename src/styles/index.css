@@ -21,11 +21,11 @@
     @apply bg-ink-base text-content antialiased;
     font-family: 'Manrope', system-ui, sans-serif;
     /* Ambient depth: two soft accent glows fading into the obsidian base. */
-    background-color: #07080c;
+    background-color: #0b0f14;
     background-image:
-      radial-gradient(60rem 60rem at 50% -20%, rgba(25, 205, 142, 0.1), transparent 60%),
-      radial-gradient(48rem 48rem at 100% 8%, rgba(47, 212, 196, 0.06), transparent 55%),
-      radial-gradient(52rem 52rem at 0% 100%, rgba(25, 205, 142, 0.05), transparent 55%);
+      radial-gradient(60rem 60rem at 50% -20%, rgba(46, 143, 255, 0.12), transparent 60%),
+      radial-gradient(48rem 48rem at 100% 8%, rgba(34, 211, 238, 0.07), transparent 55%),
+      radial-gradient(52rem 52rem at 0% 100%, rgba(46, 143, 255, 0.06), transparent 55%);
     background-repeat: no-repeat;
   }
 
@@ -36,8 +36,8 @@
   }
 
   ::selection {
-    background: rgba(25, 205, 142, 0.28);
-    color: #f5f7fa;
+    background: rgba(46, 143, 255, 0.3);
+    color: #f3f6fb;
   }
 }
 

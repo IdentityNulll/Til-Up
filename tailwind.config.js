@@ -4,45 +4,45 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Obsidian ink scale — layered surfaces from deepest background up.
+        // Obsidian ink scale — deep cool charcoal-black, layered surfaces up.
         ink: {
-          base: '#07080c',
-          950: '#0a0b11',
-          900: '#0e1017',
-          850: '#13151e',
-          800: '#191c27',
-          750: '#1f2230',
-          700: '#262a3a',
-          600: '#333849',
-          500: '#454b60',
+          base: '#0b0f14',
+          950: '#0d121a',
+          900: '#111722',
+          850: '#161d2b',
+          800: '#1c2433',
+          750: '#232c3e',
+          700: '#2b3547',
+          600: '#384357',
+          500: '#4a5670',
         },
         // Text ramp for hierarchy.
         content: {
-          strong: '#f5f7fa',
-          DEFAULT: '#c7ccda',
-          muted: '#8c92a6',
-          faint: '#5c6175',
+          strong: '#f3f6fb',
+          DEFAULT: '#c4cbdb',
+          muted: '#8a92a8',
+          faint: '#5a6379',
         },
-        // Emerald/mint accent.
+        // Electric blue accent.
         accent: {
-          DEFAULT: '#19cd8e',
-          bright: '#3ff0ac',
-          dim: '#0f9d6e',
-          deep: '#0b7854',
+          DEFAULT: '#2e8fff',
+          bright: '#5aa8ff',
+          dim: '#1f6fd6',
+          deep: '#134a9e',
         },
-        // Cool secondary used for gradients / data accents.
+        // Cyan secondary used for gradients / data accents.
         teal: {
-          DEFAULT: '#2fd4c4',
-          bright: '#5ff0e2',
+          DEFAULT: '#22d3ee',
+          bright: '#5ee7fb',
         },
         // Backwards-compatible aliases (older components still reference these).
         obsidian: {
-          950: '#07080c',
-          900: '#0e1017',
-          800: '#191c27',
-          700: '#262a3a',
-          600: '#333849',
-          500: '#454b60',
+          950: '#0b0f14',
+          900: '#111722',
+          800: '#1c2433',
+          700: '#2b3547',
+          600: '#384357',
+          500: '#4a5670',
         },
       },
       fontFamily: {
@@ -56,12 +56,12 @@ export default {
       boxShadow: {
         card: '0 1px 0 0 rgba(255,255,255,0.04) inset, 0 12px 32px -16px rgba(0,0,0,0.7)',
         raised: '0 1px 0 0 rgba(255,255,255,0.05) inset, 0 20px 44px -20px rgba(0,0,0,0.8)',
-        glow: '0 0 0 1px rgba(25,205,142,0.35), 0 14px 40px -12px rgba(25,205,142,0.4)',
-        'glow-sm': '0 8px 24px -10px rgba(25,205,142,0.45)',
+        glow: '0 0 0 1px rgba(46,143,255,0.35), 0 14px 40px -12px rgba(46,143,255,0.45)',
+        'glow-sm': '0 8px 24px -10px rgba(46,143,255,0.5)',
       },
       backgroundImage: {
-        'accent-grad': 'linear-gradient(135deg, #3ff0ac 0%, #19cd8e 45%, #12b39a 100%)',
-        'accent-soft': 'linear-gradient(135deg, rgba(63,240,172,0.16), rgba(47,212,196,0.08))',
+        'accent-grad': 'linear-gradient(135deg, #5aa8ff 0%, #2e8fff 48%, #1f6fd6 100%)',
+        'accent-soft': 'linear-gradient(135deg, rgba(90,168,255,0.16), rgba(34,211,238,0.08))',
       },
       keyframes: {
         'fade-up': {
