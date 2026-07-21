@@ -10,8 +10,7 @@ export const LEVEL_META = {
 };
 
 export const TIMEFRAMES = [
-  { value: '1_oy', label: '1 oy', hint: 'Jadal surʼat' },
-  { value: '3_oy', label: '3 oy', hint: 'Muvozanatli' },
-  { value: '6_oy', label: '6 oy', hint: 'Bosqichma-bosqich' },
-  { value: '12_oy', label: '12 oy', hint: 'Bemalol' },
+  { value: '1_oy', label: '1 oy', hint: 'Jadal surʼat — kamroq test' },
+  { value: '2_oy', label: '2 oy', hint: 'Muvozanatli' },
+  { value: '3_oy', label: '3 oy', hint: 'Bosqichma-bosqich — tez-tez test' },
 ];

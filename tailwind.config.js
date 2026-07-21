@@ -4,45 +4,47 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Obsidian ink scale — deep cool charcoal-black, layered surfaces up.
+        // Light neutral scale (green-tinted). Names kept from the old dark
+        // theme, but values are now light: `900` = white cards, `base` = the
+        // off-white page background, higher numbers = borders/dividers.
         ink: {
-          base: '#0b0f14',
-          950: '#0d121a',
-          900: '#111722',
-          850: '#161d2b',
-          800: '#1c2433',
-          750: '#232c3e',
-          700: '#2b3547',
-          600: '#384357',
-          500: '#4a5670',
+          base: '#f4f7f4', // page background (also text color on green buttons)
+          950: '#eef2ef', // translucent glass base
+          900: '#ffffff', // cards, chips
+          850: '#f4f8f5', // hover / raised surface
+          800: '#eaefeb', // secondary button, emblems
+          750: '#e0e7e2', // borders / hover borders
+          700: '#d3ddd6', // stronger borders, path lines
+          600: '#bccabf',
+          500: '#93a598',
         },
-        // Text ramp for hierarchy.
+        // Dark text ramp on light surfaces.
         content: {
-          strong: '#f3f6fb',
-          DEFAULT: '#c4cbdb',
-          muted: '#8a92a8',
-          faint: '#5a6379',
+          strong: '#0f1c17',
+          DEFAULT: '#33453c',
+          muted: '#5f7168',
+          faint: '#8b998f',
         },
-        // Electric blue accent.
+        // Deep green primary.
         accent: {
-          DEFAULT: '#2e8fff',
-          bright: '#5aa8ff',
-          dim: '#1f6fd6',
-          deep: '#134a9e',
+          DEFAULT: '#15603a',
+          bright: '#1e7a49',
+          dim: '#124e30',
+          deep: '#0d3a24',
         },
-        // Cyan secondary used for gradients / data accents.
+        // Muted teal-green secondary for data accents (used sparingly).
         teal: {
-          DEFAULT: '#22d3ee',
-          bright: '#5ee7fb',
+          DEFAULT: '#0f766e',
+          bright: '#14b8a6',
         },
-        // Backwards-compatible aliases (older components still reference these).
+        // Backwards-compatible aliases mapped to the light scale.
         obsidian: {
-          950: '#0b0f14',
-          900: '#111722',
-          800: '#1c2433',
-          700: '#2b3547',
-          600: '#384357',
-          500: '#4a5670',
+          950: '#eef2ef',
+          900: '#ffffff',
+          800: '#eaefeb',
+          700: '#d3ddd6',
+          600: '#bccabf',
+          500: '#93a598',
         },
       },
       fontFamily: {
@@ -54,27 +56,23 @@ export default {
         '3xl': '1.75rem',
       },
       boxShadow: {
-        card: '0 1px 0 0 rgba(255,255,255,0.04) inset, 0 12px 32px -16px rgba(0,0,0,0.7)',
-        raised: '0 1px 0 0 rgba(255,255,255,0.05) inset, 0 20px 44px -20px rgba(0,0,0,0.8)',
-        glow: '0 0 0 1px rgba(46,143,255,0.35), 0 14px 40px -12px rgba(46,143,255,0.45)',
-        'glow-sm': '0 8px 24px -10px rgba(46,143,255,0.5)',
+        card: '0 1px 2px rgba(16,40,30,0.05), 0 10px 26px -18px rgba(16,40,30,0.18)',
+        raised: '0 2px 4px rgba(16,40,30,0.06), 0 18px 40px -22px rgba(16,40,30,0.22)',
+        glow: '0 0 0 1px rgba(21,96,58,0.28), 0 12px 30px -14px rgba(21,96,58,0.3)',
+        'glow-sm': '0 6px 18px -10px rgba(21,96,58,0.4)',
       },
       backgroundImage: {
-        'accent-grad': 'linear-gradient(135deg, #5aa8ff 0%, #2e8fff 48%, #1f6fd6 100%)',
-        'accent-soft': 'linear-gradient(135deg, rgba(90,168,255,0.16), rgba(34,211,238,0.08))',
+        'accent-grad': 'linear-gradient(135deg, #1e7a49 0%, #15603a 55%, #114c30 100%)',
+        'accent-soft': 'linear-gradient(135deg, rgba(21,96,58,0.1), rgba(21,96,58,0.04))',
       },
       keyframes: {
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(8px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        shimmer: {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
-        },
       },
       animation: {
-        'fade-up': 'fade-up 0.4s ease-out both',
+        'fade-up': 'fade-up 0.35s ease-out both',
       },
     },
   },

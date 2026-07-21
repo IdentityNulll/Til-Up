@@ -9,7 +9,7 @@ const ComingSoon = ({ title, description }) => (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="surface grain relative flex flex-col items-center gap-4 overflow-hidden px-6 py-14 text-center"
+      className="surface relative flex flex-col items-center gap-4 overflow-hidden px-6 py-14 text-center"
     >
       <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent-soft text-accent-bright shadow-glow-sm">
         <SparkIcon width={28} height={28} />

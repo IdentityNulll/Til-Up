@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Spinner from '../../components/ui/Spinner.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
-import { getPlacementTest, completeOnboarding } from '../../api/onboardingApi.js';
+import { completeOnboarding } from '../../api/onboardingApi.js';
 import { uz } from '../../locales/uz.js';
 import WelcomeStep from './steps/WelcomeStep.jsx';
 import LevelStep from './steps/LevelStep.jsx';
 import TimeframeStep from './steps/TimeframeStep.jsx';
-import PlacementStep from './steps/PlacementStep.jsx';
 import GeneratingStep from './steps/GeneratingStep.jsx';
 import ResultStep from './steps/ResultStep.jsx';
 
-const STEPS = ['welcome', 'level', 'timeframe', 'placement', 'generating', 'result'];
+// Input steps shown in the top progress bar (welcome is the intro, generating/
+// result are terminal).
+const INPUT_STEPS = ['level', 'timeframe'];
 
 const OnboardingPage = () => {
   const navigate = useNavigate();
@@ -21,43 +22,24 @@ const OnboardingPage = () => {
   const [step, setStep] = useState('welcome');
   const [targetLevel, setTargetLevel] = useState(null);
   const [timeframe, setTimeframe] = useState(null);
-  const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState({});
-  const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-
-  // Fetch the placement questions the first time we reach that step.
-  useEffect(() => {
-    if (step === 'placement' && questions.length === 0) {
-      getPlacementTest()
-        .then(setQuestions)
-        .catch((err) => setError(err.response?.data?.message || err.message));
-    }
-  }, [step, questions.length]);
 
   const goTo = (next) => {
     setError(null);
     setStep(next);
   };
 
-  const handleAnswer = (questionId, optionIndex) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: optionIndex }));
-  };
-
   const handleSubmit = async () => {
-    setSubmitting(true);
     setError(null);
     setStep('generating');
     try {
-      const data = await completeOnboarding({ targetLevel, timeframe, placementAnswers: answers });
+      const data = await completeOnboarding({ targetLevel, timeframe });
       setResult(data);
       setStep('result');
     } catch (err) {
       setError(err.response?.data?.message || err.message);
-      setStep('placement');
-    } finally {
-      setSubmitting(false);
+      setStep('timeframe');
     }
   };
 
@@ -83,17 +65,17 @@ const OnboardingPage = () => {
     );
   }
 
-  const stepIndex = STEPS.indexOf(step);
+  const inputIndex = INPUT_STEPS.indexOf(step);
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 pb-8 pt-8">
-      {stepIndex > 0 && step !== 'generating' && step !== 'result' && (
+      {inputIndex >= 0 && (
         <div className="mb-6 flex gap-1.5">
-          {STEPS.slice(1, 4).map((s, i) => (
+          {INPUT_STEPS.map((s, i) => (
             <div
               key={s}
               className={`h-1 flex-1 rounded-full transition-all duration-500 ${
-                i <= stepIndex - 1 ? 'bg-accent-grad' : 'bg-ink-750'
+                i <= inputIndex ? 'bg-accent-grad' : 'bg-ink-750'
               }`}
             />
           ))}
@@ -101,7 +83,7 @@ const OnboardingPage = () => {
       )}
 
       {error && (
-        <div className="mb-4 rounded-xl2 border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+        <div className="mb-4 rounded-xl2 border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-600">
           {error}
         </div>
       )}
@@ -130,27 +112,14 @@ const OnboardingPage = () => {
             <TimeframeStep
               value={timeframe}
               onChange={setTimeframe}
-              onNext={() => goTo('placement')}
+              onNext={handleSubmit}
               onBack={() => goTo('level')}
-            />
-          )}
-
-          {step === 'placement' && (
-            <PlacementStep
-              questions={questions}
-              answers={answers}
-              onAnswer={handleAnswer}
-              onSubmit={handleSubmit}
-              onBack={() => goTo('timeframe')}
-              submitting={submitting}
             />
           )}
 
           {step === 'generating' && <GeneratingStep />}
 
-          {step === 'result' && result && (
-            <ResultStep result={result} onFinish={handleFinish} />
-          )}
+          {step === 'result' && result && <ResultStep result={result} onFinish={handleFinish} />}
         </motion.div>
       </AnimatePresence>
     </div>

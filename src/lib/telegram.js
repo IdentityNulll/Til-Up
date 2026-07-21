@@ -2,8 +2,8 @@
 // touches window.Telegram directly and stays safe when running outside Telegram
 // (local browser dev, or the Netlify site opened in a normal browser).
 
-const ACCENT = '#2e8fff';
-const ACCENT_TEXT = '#04080f';
+const ACCENT = '#15603a';
+const ACCENT_TEXT = '#ffffff';
 
 export const tg = typeof window !== 'undefined' ? window.Telegram?.WebApp : undefined;
 
@@ -25,8 +25,8 @@ export const initTelegram = () => {
   if (!tg) return;
   tg.ready();
   tg.expand();
-  tg.setHeaderColor?.('#0b0f14');
-  tg.setBackgroundColor?.('#0b0f14');
+  tg.setHeaderColor?.('#ffffff');
+  tg.setBackgroundColor?.('#f4f7f4');
 };
 
 // --- Haptics -------------------------------------------------------------

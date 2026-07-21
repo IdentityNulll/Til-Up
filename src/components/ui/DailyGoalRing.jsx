@@ -13,7 +13,7 @@ const DailyGoalRing = ({ value = 0, goal = 50, size = 56, stroke = 6 }) => {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#232c3e"
+          stroke="#e0e7e2"
           strokeWidth={stroke}
         />
         <circle
@@ -30,8 +30,8 @@ const DailyGoalRing = ({ value = 0, goal = 50, size = 56, stroke = 6 }) => {
         />
         <defs>
           <linearGradient id="dailyGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#5aa8ff" />
-            <stop offset="1" stopColor="#22d3ee" />
+            <stop stopColor="#1e7a49" />
+            <stop offset="1" stopColor="#0f766e" />
           </linearGradient>
         </defs>
       </svg>

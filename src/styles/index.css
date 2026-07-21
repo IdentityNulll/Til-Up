@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   * {
@@ -20,13 +20,13 @@
   body {
     @apply bg-ink-base text-content antialiased;
     font-family: 'Manrope', system-ui, sans-serif;
-    /* Ambient depth: two soft accent glows fading into the obsidian base. */
-    background-color: #0b0f14;
+    background-color: #f4f7f4;
+    /* Very soft green wash for depth — subtle, not distracting. */
     background-image:
-      radial-gradient(60rem 60rem at 50% -20%, rgba(46, 143, 255, 0.12), transparent 60%),
-      radial-gradient(48rem 48rem at 100% 8%, rgba(34, 211, 238, 0.07), transparent 55%),
-      radial-gradient(52rem 52rem at 0% 100%, rgba(46, 143, 255, 0.06), transparent 55%);
+      radial-gradient(48rem 48rem at 50% -20%, rgba(21, 96, 58, 0.06), transparent 60%),
+      radial-gradient(40rem 40rem at 100% 4%, rgba(15, 118, 110, 0.04), transparent 55%);
     background-repeat: no-repeat;
+    background-attachment: scroll;
   }
 
   h1,
@@ -36,34 +36,33 @@
   }
 
   ::selection {
-    background: rgba(46, 143, 255, 0.3);
-    color: #f3f6fb;
+    background: rgba(21, 96, 58, 0.16);
+    color: #0f1c17;
   }
 }
 
 @layer components {
-  /* Card with a subtle top-lit gradient hairline border. */
+  /* White card with a soft border + gentle shadow. */
   .surface {
-    @apply relative rounded-xl2 border border-ink-750/80 bg-ink-900/80 shadow-card;
+    @apply relative rounded-xl2 border border-ink-750 bg-ink-900 shadow-card;
   }
 
   .surface-raised {
-    @apply relative rounded-xl2 border border-ink-700 bg-ink-850 shadow-raised;
+    @apply relative rounded-xl2 border border-ink-750 bg-ink-900 shadow-raised;
   }
 
-  /* Glassy chrome used for the top/bottom bars. */
+  /* Translucent light chrome for the top/bottom bars. */
   .glass {
-    @apply border-ink-750/70 bg-ink-950/70 backdrop-blur-xl;
+    @apply border-ink-750 bg-ink-900/85 backdrop-blur-lg;
   }
 
   .text-gradient {
     @apply bg-accent-grad bg-clip-text text-transparent;
   }
 
-  /* Thin gradient divider. */
   .hairline {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    background: linear-gradient(90deg, transparent, rgba(15, 28, 23, 0.08), transparent);
   }
 }
 
@@ -74,16 +73,6 @@
 
   .safe-top {
     padding-top: env(safe-area-inset-top);
-  }
-
-  /* Fine grain overlay for texture on large dark surfaces. */
-  .grain::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.5;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
 
   .no-scrollbar::-webkit-scrollbar {

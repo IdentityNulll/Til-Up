@@ -3,7 +3,7 @@ const Heart = ({ filled }) => (
     <path
       d="M12 20.5S3.5 15 3.5 8.9A4.4 4.4 0 0 1 12 6.8a4.4 4.4 0 0 1 8.5 2.1C20.5 15 12 20.5 12 20.5Z"
       fill={filled ? '#ff5a6a' : 'none'}
-      stroke={filled ? '#ff5a6a' : '#384357'}
+      stroke={filled ? '#ff5a6a' : '#c9d3cc'}
       strokeWidth="1.6"
       strokeLinejoin="round"
     />

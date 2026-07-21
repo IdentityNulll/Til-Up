@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckIcon, BookIcon, TrophyIcon } from './icons.jsx';
+import { CheckIcon, BookIcon, TrophyIcon, SparkIcon } from './icons.jsx';
 
 // Small lock glyph for locked nodes.
 const LockIcon = (props) => (
@@ -9,12 +9,20 @@ const LockIcon = (props) => (
   </svg>
 );
 
+// Icon by node type when unlocked & not completed (locked → lock, completed → check).
+const TYPE_ICON = { lesson: BookIcon, quiz: SparkIcon, checkpoint: TrophyIcon };
+
 const RoadmapNode = ({ node, onClick }) => {
   const { type, status, title } = node;
   const isCheckpoint = type === 'checkpoint';
   const clickable = status !== 'locked';
 
-  const shape = isCheckpoint ? 'rounded-2xl h-16 w-16' : 'rounded-full h-16 w-16';
+  // Checkpoints are square; quizzes are slightly smaller circles; lessons full.
+  const shape = isCheckpoint
+    ? 'rounded-2xl h-16 w-16'
+    : type === 'quiz'
+      ? 'rounded-full h-14 w-14'
+      : 'rounded-full h-16 w-16';
 
   const styles = {
     completed: 'bg-accent-grad text-ink-base shadow-glow-sm',
@@ -22,15 +30,20 @@ const RoadmapNode = ({ node, onClick }) => {
     locked: 'border-2 border-ink-700 bg-ink-850 text-content-faint',
   }[status];
 
-  const Icon = isCheckpoint ? TrophyIcon : status === 'completed' ? CheckIcon : status === 'locked' ? LockIcon : BookIcon;
+  const Icon =
+    status === 'completed'
+      ? CheckIcon
+      : status === 'locked'
+        ? LockIcon
+        : TYPE_ICON[type] || BookIcon;
 
   return (
     <div className="relative flex flex-col items-center gap-1.5">
       {status === 'current' && (
         <motion.span
-          className="absolute top-0 h-16 w-16 rounded-full bg-accent/30"
-          animate={{ scale: [1, 1.35, 1], opacity: [0.6, 0, 0.6] }}
-          transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+          className="absolute top-0 h-16 w-16 rounded-full bg-accent/25"
+          animate={{ scale: [1, 1.22, 1], opacity: [0.4, 0, 0.4] }}
+          transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
         />
       )}
       <motion.button
