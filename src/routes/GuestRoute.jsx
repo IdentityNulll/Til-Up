@@ -2,7 +2,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 import Spinner from '../components/ui/Spinner.jsx';
 import { useAuth } from '../hooks/useAuth.js';
 
-const ProtectedRoute = () => {
+// For /login and /register — send already-authenticated users into the app.
+const GuestRoute = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -12,16 +13,7 @@ const ProtectedRoute = () => {
       </div>
     );
   }
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (!user.onboardingCompleted) {
-    return <Navigate to="/onboarding" replace />;
-  }
-
-  return <Outlet />;
+  return user ? <Navigate to="/" replace /> : <Outlet />;
 };
 
-export default ProtectedRoute;
+export default GuestRoute;

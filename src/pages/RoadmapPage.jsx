@@ -9,7 +9,6 @@ import DailyGoalRing from '../components/ui/DailyGoalRing.jsx';
 import ProgressBar from '../components/ui/ProgressBar.jsx';
 import { FlameIcon } from '../components/ui/icons.jsx';
 import { getRoadmap } from '../api/roadmapApi.js';
-import { haptic } from '../lib/telegram.js';
 import { uz } from '../locales/uz.js';
 
 const STATUS_PILL = {
@@ -94,11 +93,7 @@ const RoadmapPage = () => {
   const doneCount = allNodes.filter((n) => n.status === 'completed').length;
 
   const handleNodeClick = (node) => {
-    if (node.status === 'locked') {
-      haptic.notify('warning');
-      return;
-    }
-    haptic.impact('light');
+    if (node.status === 'locked') return;
     navigate(`/lesson/${node.id}`);
   };
 

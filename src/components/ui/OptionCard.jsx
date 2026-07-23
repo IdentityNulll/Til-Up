@@ -1,16 +1,11 @@
 import { motion } from 'framer-motion';
 import { CheckIcon } from './icons.jsx';
-import { haptic } from '../../lib/telegram.js';
 
 const OptionCard = ({ selected, onClick, title, hint, emblem, className = '' }) => {
-  const handleClick = () => {
-    haptic.select();
-    onClick?.();
-  };
   return (
     <motion.button
       type="button"
-      onClick={handleClick}
+      onClick={onClick}
       whileTap={{ scale: 0.985 }}
       className={`group relative flex w-full items-center gap-3.5 overflow-hidden rounded-xl2 border px-4 py-3.5 text-left transition-all duration-200 ${
         selected

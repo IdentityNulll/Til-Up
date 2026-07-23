@@ -11,7 +11,7 @@ const NAV_ITEMS = [
 
 const BottomNav = () => {
   return (
-    <nav className="safe-bottom glass fixed inset-x-0 bottom-0 z-20 border-t">
+    <nav className="safe-bottom glass fixed inset-x-0 bottom-0 z-20 border-t md:hidden">
       <div className="mx-auto flex max-w-md items-stretch justify-around px-2 pt-1.5">
         {NAV_ITEMS.map(({ to, label, Icon }) => (
           <NavLink

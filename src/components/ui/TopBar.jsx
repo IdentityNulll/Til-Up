@@ -14,7 +14,7 @@ const TopBar = () => {
   const { user } = useAuth();
 
   return (
-    <header className="safe-top glass sticky top-0 z-20 border-b">
+    <header className="safe-top glass sticky top-0 z-20 border-b md:hidden">
       <div className="mx-auto flex max-w-md items-center justify-between px-4 py-3">
         <Logo size={28} />
         <div className="flex items-center gap-1.5">

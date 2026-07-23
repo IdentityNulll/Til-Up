@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import Spinner from '../../components/ui/Spinner.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
 import { completeOnboarding } from '../../api/onboardingApi.js';
 import { uz } from '../../locales/uz.js';
@@ -17,7 +16,7 @@ const INPUT_STEPS = ['level', 'timeframe'];
 
 const OnboardingPage = () => {
   const navigate = useNavigate();
-  const { user, setUser, loading: authLoading, error: authError } = useAuth();
+  const { setUser } = useAuth();
 
   const [step, setStep] = useState('welcome');
   const [targetLevel, setTargetLevel] = useState(null);
@@ -47,23 +46,6 @@ const OnboardingPage = () => {
     if (result?.user) setUser(result.user);
     navigate('/', { replace: true });
   };
-
-  if (authLoading) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-3">
-        <Spinner />
-        <p className="text-sm text-content-muted">{uz.auth.connecting}</p>
-      </div>
-    );
-  }
-
-  if (authError || !user) {
-    return (
-      <div className="flex min-h-screen items-center justify-center px-6 text-center">
-        <p className="text-sm text-content-muted">{authError || uz.auth.failed}</p>
-      </div>
-    );
-  }
 
   const inputIndex = INPUT_STEPS.indexOf(step);
 
