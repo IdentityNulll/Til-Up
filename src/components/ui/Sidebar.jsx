@@ -1,18 +1,19 @@
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo.jsx';
 import Avatar from './Avatar.jsx';
-import { RouteIcon, ChartIcon, UserIcon } from './icons.jsx';
+import { RouteIcon, ChartIcon, UserIcon, TrophyIcon } from './icons.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
 import { uz } from '../../locales/uz.js';
 
 const NAV_ITEMS = [
-  { to: '/', label: uz.nav.roadmap, Icon: RouteIcon },
+  { to: '/courses', label: uz.nav.courses, Icon: RouteIcon },
   { to: '/statistics', label: uz.nav.statistics, Icon: ChartIcon },
   { to: '/profile', label: uz.nav.profile, Icon: UserIcon },
 ];
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
+  const isStaff = user?.role === 'admin' || user?.role === 'teacher';
 
   return (
     <aside className="fixed inset-y-0 left-0 z-20 hidden w-64 flex-col border-r border-ink-750 bg-ink-900/80 px-4 py-6 backdrop-blur md:flex">
@@ -25,7 +26,6 @@ const Sidebar = () => {
           <NavLink
             key={to}
             to={to}
-            end={to === '/'}
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-xl2 px-3 py-2.5 text-[15px] font-semibold transition-colors ${
                 isActive
@@ -38,6 +38,21 @@ const Sidebar = () => {
             {label}
           </NavLink>
         ))}
+        {isStaff && (
+          <NavLink
+            to="/admin"
+            className={({ isActive }) =>
+              `flex items-center gap-3 rounded-xl2 px-3 py-2.5 text-[15px] font-semibold transition-colors ${
+                isActive
+                  ? 'bg-accent-soft text-accent'
+                  : 'text-content-muted hover:bg-ink-850 hover:text-content-strong'
+              }`
+            }
+          >
+            <TrophyIcon width={20} height={20} />
+            {uz.nav.admin}
+          </NavLink>
+        )}
       </nav>
 
       <NavLink

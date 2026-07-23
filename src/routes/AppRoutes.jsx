@@ -2,33 +2,54 @@ import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import GuestRoute from './GuestRoute.jsx';
 import OnboardingRoute from './OnboardingRoute.jsx';
+import LandingRoute from './LandingRoute.jsx';
+import AdminRoute from './AdminRoute.jsx';
 import AppShell from '../layouts/AppShell.jsx';
+import AdminShell from '../layouts/AdminShell.jsx';
 import LoginPage from '../pages/auth/LoginPage.jsx';
 import RegisterPage from '../pages/auth/RegisterPage.jsx';
-import RoadmapPage from '../pages/RoadmapPage.jsx';
+import CoursesPage from '../pages/CoursesPage.jsx';
+import CourseRoadmapPage from '../pages/CourseRoadmapPage.jsx';
 import ProfilePage from '../pages/ProfilePage.jsx';
 import StatisticsPage from '../pages/StatisticsPage.jsx';
-import LessonPage from '../pages/LessonPage.jsx';
-import EssayPage from '../pages/EssayPage.jsx';
-import MockExamPage from '../pages/MockExamPage.jsx';
+import AdminOverview from '../pages/admin/AdminOverview.jsx';
+import AdminCourses from '../pages/admin/AdminCourses.jsx';
+import AdminCourseBuilder from '../pages/admin/AdminCourseBuilder.jsx';
+import AdminStudents from '../pages/admin/AdminStudents.jsx';
+import AdminUsers from '../pages/admin/AdminUsers.jsx';
 
 const AppRoutes = () => (
   <Routes>
+    {/* Public landing (feature tour) */}
+    <Route path="/" element={<LandingRoute />} />
+
+    {/* Guest-only auth pages */}
     <Route element={<GuestRoute />}>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
     </Route>
 
+    {/* First-run onboarding test */}
     <Route path="/onboarding" element={<OnboardingRoute />} />
 
+    {/* Signed-in app */}
     <Route element={<ProtectedRoute />}>
       <Route element={<AppShell />}>
-        <Route path="/" element={<RoadmapPage />} />
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/courses/:courseId" element={<CourseRoadmapPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/statistics" element={<StatisticsPage />} />
-        <Route path="/lesson/:lessonId" element={<LessonPage />} />
-        <Route path="/essay" element={<EssayPage />} />
-        <Route path="/mock-exam" element={<MockExamPage />} />
+      </Route>
+    </Route>
+
+    {/* Admin / teacher dashboard */}
+    <Route element={<AdminRoute />}>
+      <Route element={<AdminShell />}>
+        <Route path="/admin" element={<AdminOverview />} />
+        <Route path="/admin/courses" element={<AdminCourses />} />
+        <Route path="/admin/courses/:courseId" element={<AdminCourseBuilder />} />
+        <Route path="/admin/students" element={<AdminStudents />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
       </Route>
     </Route>
   </Routes>

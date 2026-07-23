@@ -4,7 +4,7 @@ import { RouteIcon, ChartIcon, UserIcon } from './icons.jsx';
 import { uz } from '../../locales/uz.js';
 
 const NAV_ITEMS = [
-  { to: '/', label: uz.nav.roadmap, Icon: RouteIcon },
+  { to: '/courses', label: uz.nav.courses, Icon: RouteIcon },
   { to: '/statistics', label: uz.nav.statistics, Icon: ChartIcon },
   { to: '/profile', label: uz.nav.profile, Icon: UserIcon },
 ];

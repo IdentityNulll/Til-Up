@@ -4,11 +4,10 @@ import Button from '../components/ui/Button.jsx';
 import Input from '../components/ui/Input.jsx';
 import Avatar from '../components/ui/Avatar.jsx';
 import Spinner from '../components/ui/Spinner.jsx';
-import LevelBadge from '../components/ui/LevelBadge.jsx';
 import ProgressBar from '../components/ui/ProgressBar.jsx';
 import DailyGoalRing from '../components/ui/DailyGoalRing.jsx';
-import { FlameIcon, SparkIcon } from '../components/ui/icons.jsx';
-import { getRoadmap } from '../api/roadmapApi.js';
+import { FlameIcon, SparkIcon, RouteIcon } from '../components/ui/icons.jsx';
+import { myEnrollments } from '../api/coursesApi.js';
 import { updateProfile, changePassword } from '../api/userApi.js';
 import { useAuth } from '../hooks/useAuth.js';
 import { uz } from '../locales/uz.js';
@@ -29,17 +28,15 @@ const StatTile = ({ label, value, children }) => (
 
 const ProfilePage = () => {
   const { user, setUser, logout } = useAuth();
-  const [roadmap, setRoadmap] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [enrollments, setEnrollments] = useState(null);
 
   useEffect(() => {
-    getRoadmap()
-      .then(setRoadmap)
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    myEnrollments()
+      .then(setEnrollments)
+      .catch(() => setEnrollments([]));
   }, []);
 
-  if (loading) {
+  if (!enrollments) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
         <Spinner />
@@ -47,9 +44,8 @@ const ProfilePage = () => {
     );
   }
 
-  const stats = roadmap?.stats || {};
-  const allNodes = (roadmap?.modules || []).flatMap((m) => m.nodes);
-  const done = allNodes.filter((n) => n.status === 'completed').length;
+  const done = enrollments.reduce((s, e) => s + e.completed, 0);
+  const total = enrollments.reduce((s, e) => s + e.total, 0);
   const hasPassword = user.authProvider !== 'google';
 
   return (
@@ -72,17 +68,17 @@ const ProfilePage = () => {
       <section className="flex flex-col gap-3">
         <h2 className="px-1 text-sm font-bold text-content">{uz.profile.statsTitle}</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <StatTile label={uz.profile.targetLevel}>
-            <LevelBadge code={stats.currentLevel || user.targetLevel || 'C'} status="current" size="sm" />
+          <StatTile label={uz.profile.courses} value={enrollments.length}>
+            <RouteIcon width={20} height={20} className="text-accent" />
           </StatTile>
-          <StatTile label={uz.profile.xp} value={stats.xp ?? user.xp ?? 0}>
+          <StatTile label={uz.profile.xp} value={user.xp ?? 0}>
             <SparkIcon width={20} height={20} className="text-accent" />
           </StatTile>
-          <StatTile label={uz.profile.streak} value={stats.streak ?? user.streakCount ?? 0}>
+          <StatTile label={uz.profile.streak} value={user.streakCount ?? 0}>
             <FlameIcon width={20} height={20} className="text-orange-400" />
           </StatTile>
           <StatTile label={uz.profile.dailyGoal}>
-            <DailyGoalRing value={stats.dailyXp ?? 0} goal={stats.dailyGoalXp ?? 50} size={44} stroke={5} />
+            <DailyGoalRing value={user.dailyXp ?? 0} goal={user.dailyGoalXp ?? 50} size={44} stroke={5} />
           </StatTile>
         </div>
 
@@ -90,10 +86,10 @@ const ProfilePage = () => {
           <div className="mb-1.5 flex items-center justify-between text-[13px] text-content-muted">
             <span>{uz.profile.progress}</span>
             <span className="font-semibold text-content">
-              {done}/{allNodes.length || 0}
+              {done}/{total || 0}
             </span>
           </div>
-          <ProgressBar value={done} max={allNodes.length || 1} />
+          <ProgressBar value={done} max={total || 1} />
         </Card>
       </section>
 

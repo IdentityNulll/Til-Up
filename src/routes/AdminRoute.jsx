@@ -2,8 +2,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 import Spinner from '../components/ui/Spinner.jsx';
 import { useAuth } from '../hooks/useAuth.js';
 
-// For /login and /register — send already-authenticated users into the app.
-const GuestRoute = () => {
+// Admin + teacher only. Others are bounced to the app.
+const AdminRoute = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -13,7 +13,11 @@ const GuestRoute = () => {
       </div>
     );
   }
-  return user ? <Navigate to="/courses" replace /> : <Outlet />;
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.role !== 'admin' && user.role !== 'teacher') {
+    return <Navigate to="/courses" replace />;
+  }
+  return <Outlet />;
 };
 
-export default GuestRoute;
+export default AdminRoute;
