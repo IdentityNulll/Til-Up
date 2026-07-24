@@ -3,7 +3,7 @@ import axios from 'axios';
 const axiosClient = axios.create({
   // Local dev reads client/.env (VITE_API_URL=http://localhost:7777/api);
   // production (Netlify) sets VITE_API_URL to the Railway URL at build time.
-  baseURL: import.meta.env.VITE_API_URL || 'https://til-up-production.up.railway.app/api',
+  baseURL: 'https://til-up-production.up.railway.app/api',
 });
 
 axiosClient.interceptors.request.use((config) => {
