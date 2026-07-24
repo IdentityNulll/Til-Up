@@ -2,6 +2,20 @@ import { useEffect, useRef, useState } from 'react';
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
+// Initialize Google Identity Services exactly once for the whole app.
+let gsiInitialized = false;
+const latestCallback = { current: null };
+
+const ensureInitialized = (google) => {
+  if (gsiInitialized) return;
+  google.accounts.id.initialize({
+    client_id: CLIENT_ID,
+    callback: (resp) => latestCallback.current?.(resp.credential),
+    use_fedcm_for_prompt: true,
+  });
+  gsiInitialized = true;
+};
+
 /**
  * Renders the official Google Identity Services sign-in button. On success it
  * calls `onCredential` with the Google ID token, which the backend verifies.
@@ -11,21 +25,22 @@ const GoogleButton = ({ onCredential }) => {
   const ref = useRef(null);
   const [ready, setReady] = useState(false);
 
+  // Keep the newest callback without re-initializing GSI.
+  latestCallback.current = onCredential;
+
   useEffect(() => {
     if (!CLIENT_ID) return undefined;
 
     let cancelled = false;
-    const tryInit = () => {
+    const render = () => {
       if (cancelled) return;
       const google = window.google;
       if (!google?.accounts?.id || !ref.current) {
-        setTimeout(tryInit, 200); // GSI script still loading
+        setTimeout(render, 200); // GSI script still loading
         return;
       }
-      google.accounts.id.initialize({
-        client_id: CLIENT_ID,
-        callback: (resp) => onCredential(resp.credential),
-      });
+      ensureInitialized(google);
+      ref.current.innerHTML = '';
       google.accounts.id.renderButton(ref.current, {
         theme: 'outline',
         size: 'large',
@@ -36,11 +51,11 @@ const GoogleButton = ({ onCredential }) => {
       });
       setReady(true);
     };
-    tryInit();
+    render();
     return () => {
       cancelled = true;
     };
-  }, [onCredential]);
+  }, []);
 
   if (!CLIENT_ID) {
     return (

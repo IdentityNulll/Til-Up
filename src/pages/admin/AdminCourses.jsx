@@ -7,10 +7,12 @@ import Spinner from '../../components/ui/Spinner.jsx';
 import { getAdminCourses, createCourse, deleteCourse } from '../../api/adminApi.js';
 import { uz } from '../../locales/uz.js';
 
+const CATEGORIES = ['Grammatika', 'Insho', 'Adabiyot', 'Imlo', 'Lugʻat', 'Umumiy'];
+
 const AdminCourses = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState(null);
-  const [form, setForm] = useState({ title: '', emoji: '📘', description: '' });
+  const [form, setForm] = useState({ title: '', emoji: '📘', category: 'Grammatika', description: '' });
   const [busy, setBusy] = useState(false);
 
   const load = () => getAdminCourses().then(setCourses).catch(() => setCourses([]));
@@ -65,6 +67,21 @@ const AdminCourses = () => {
               <Input name="title" placeholder={uz.admin.courseTitle} value={form.title} onChange={onChange} />
             </div>
           </div>
+          <label className="flex flex-col gap-1.5">
+            <span className="text-[13px] font-semibold text-content">{uz.admin.category}</span>
+            <select
+              name="category"
+              value={form.category}
+              onChange={onChange}
+              className="w-full rounded-xl2 border border-ink-750 bg-ink-900 px-4 py-3 text-[15px] font-semibold text-content-strong outline-none focus:border-accent"
+            >
+              {CATEGORIES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </label>
           <Input name="description" placeholder={uz.admin.description} value={form.description} onChange={onChange} />
           <Button type="submit" size="sm" disabled={busy} className="self-start">
             {uz.admin.create}

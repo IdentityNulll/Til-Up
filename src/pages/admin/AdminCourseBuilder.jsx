@@ -96,16 +96,30 @@ const AdminCourseBuilder = () => {
               {lessonsByModule(m._id).map((l) => (
                 <div
                   key={l._id}
-                  className="flex items-center justify-between rounded-xl border border-ink-750 bg-ink-850 px-3 py-2"
+                  className="flex items-center justify-between gap-2 rounded-xl border border-ink-750 bg-ink-850 px-3 py-2"
                 >
-                  <span className="text-sm text-content">{l.title}</span>
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/admin/courses/${courseId}/lessons/${l._id}`)}
+                    className="flex min-w-0 flex-1 items-center gap-2 text-left"
+                  >
+                    <span className="truncate text-sm text-content hover:text-accent">{l.title}</span>
+                    {l.pdfName && <span title={l.pdfName}>📄</span>}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/admin/courses/${courseId}/lessons/${l._id}`)}
+                    className="shrink-0 text-[12px] font-semibold text-accent"
+                  >
+                    {uz.admin.edit}
+                  </button>
                   <button
                     type="button"
                     onClick={async () => {
                       await deleteLesson(l._id);
                       load();
                     }}
-                    className="text-[12px] font-semibold text-content-faint hover:text-red-600"
+                    className="shrink-0 text-[12px] font-semibold text-content-faint hover:text-red-600"
                   >
                     {uz.admin.delete}
                   </button>

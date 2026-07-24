@@ -10,11 +10,13 @@ import LoginPage from '../pages/auth/LoginPage.jsx';
 import RegisterPage from '../pages/auth/RegisterPage.jsx';
 import CoursesPage from '../pages/CoursesPage.jsx';
 import CourseRoadmapPage from '../pages/CourseRoadmapPage.jsx';
+import LessonView from '../pages/LessonView.jsx';
 import ProfilePage from '../pages/ProfilePage.jsx';
 import StatisticsPage from '../pages/StatisticsPage.jsx';
 import AdminOverview from '../pages/admin/AdminOverview.jsx';
 import AdminCourses from '../pages/admin/AdminCourses.jsx';
 import AdminCourseBuilder from '../pages/admin/AdminCourseBuilder.jsx';
+import AdminLessonEditor from '../pages/admin/AdminLessonEditor.jsx';
 import AdminStudents from '../pages/admin/AdminStudents.jsx';
 import AdminUsers from '../pages/admin/AdminUsers.jsx';
 
@@ -29,7 +31,7 @@ const AppRoutes = () => (
       <Route path="/register" element={<RegisterPage />} />
     </Route>
 
-    {/* First-run onboarding test */}
+    {/* First-run onboarding (pick target level) */}
     <Route path="/onboarding" element={<OnboardingRoute />} />
 
     {/* Signed-in app */}
@@ -37,6 +39,7 @@ const AppRoutes = () => (
       <Route element={<AppShell />}>
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:courseId" element={<CourseRoadmapPage />} />
+        <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonView />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/statistics" element={<StatisticsPage />} />
       </Route>
@@ -48,6 +51,7 @@ const AppRoutes = () => (
         <Route path="/admin" element={<AdminOverview />} />
         <Route path="/admin/courses" element={<AdminCourses />} />
         <Route path="/admin/courses/:courseId" element={<AdminCourseBuilder />} />
+        <Route path="/admin/courses/:courseId/lessons/:lessonId" element={<AdminLessonEditor />} />
         <Route path="/admin/students" element={<AdminStudents />} />
         <Route path="/admin/users" element={<AdminUsers />} />
       </Route>

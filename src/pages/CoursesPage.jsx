@@ -51,11 +51,18 @@ const CoursesPage = () => {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl2 bg-accent-soft text-2xl">
                   {c.emoji}
                 </span>
-                {c.enrolled && (
-                  <span className="rounded-full border border-accent/30 bg-accent-soft px-2.5 py-0.5 text-[11px] font-semibold text-accent">
-                    {uz.courses.enrolled}
-                  </span>
-                )}
+                <div className="flex items-center gap-1.5">
+                  {c.category && (
+                    <span className="rounded-full border border-ink-700 bg-ink-850 px-2.5 py-0.5 text-[11px] font-semibold text-content-muted">
+                      {c.category}
+                    </span>
+                  )}
+                  {c.enrolled && (
+                    <span className="rounded-full border border-accent/30 bg-accent-soft px-2.5 py-0.5 text-[11px] font-semibold text-accent">
+                      {uz.courses.enrolled}
+                    </span>
+                  )}
+                </div>
               </div>
               <div>
                 <p className="text-lg font-bold text-content-strong">{c.title}</p>

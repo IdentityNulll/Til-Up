@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import Spinner from '../components/ui/Spinner.jsx';
 import { useAuth } from '../hooks/useAuth.js';
-import OnboardingTest from '../pages/onboarding/OnboardingTest.jsx';
+import TargetLevelPage from '../pages/onboarding/TargetLevelPage.jsx';
 
-// Onboarding test requires a logged-in user who hasn't finished it yet.
+// Onboarding (pick target level) — a logged-in user who hasn't finished it yet.
 const OnboardingRoute = () => {
   const { user, loading } = useAuth();
 
@@ -16,7 +16,7 @@ const OnboardingRoute = () => {
   }
   if (!user) return <Navigate to="/login" replace />;
   if (user.onboardingCompleted) return <Navigate to="/courses" replace />;
-  return <OnboardingTest />;
+  return <TargetLevelPage />;
 };
 
 export default OnboardingRoute;

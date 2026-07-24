@@ -20,6 +20,12 @@
   to = "/index.html"
   status = 200
 
+# Allow Google Identity Services sign-in popups to postMessage back to the app.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
+
 # Long-cache the fingerprinted build assets (safe: filenames change per build).
 [[headers]]
   for = "/assets/*"

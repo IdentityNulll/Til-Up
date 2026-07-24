@@ -69,7 +69,12 @@ const CourseRoadmapPage = () => {
 
   const handleNodeClick = async (node) => {
     if (node.status === 'locked') return;
-    // Mark the node complete and refresh the roadmap (lesson content viewer TBD).
+    if (node.type === 'lesson') {
+      // Open the lesson (PDF + quiz); completion happens on quiz pass.
+      navigate(`/courses/${courseId}/lessons/${node.id}`);
+      return;
+    }
+    // Checkpoint nodes just mark complete for now.
     await completeNode(courseId, node.id);
     load();
   };

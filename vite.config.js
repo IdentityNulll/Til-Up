@@ -6,5 +6,9 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
+    // Allow Google Identity Services popups to postMessage back to the app.
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+    },
   },
 });

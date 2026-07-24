@@ -19,3 +19,19 @@ export const myEnrollments = async () => {
   const { data } = await axiosClient.get('/courses/me/enrollments');
   return data.enrollments;
 };
+
+export const getLesson = async (courseId, lessonId) => {
+  const { data } = await axiosClient.get(`/courses/${courseId}/lessons/${lessonId}`);
+  return data; // { lesson, questions, completed }
+};
+
+export const submitQuiz = async (courseId, lessonId, answers) => {
+  const { data } = await axiosClient.post(`/courses/${courseId}/lessons/${lessonId}/quiz`, { answers });
+  return data; // { passed, score, correct, total, threshold }
+};
+
+// Fetch a protected PDF as an object URL (keeps auth in the header).
+export const getPdfObjectUrl = async (fileId) => {
+  const res = await axiosClient.get(`/files/${fileId}`, { responseType: 'blob' });
+  return URL.createObjectURL(res.data);
+};

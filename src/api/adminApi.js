@@ -27,4 +27,31 @@ export const createModule = async (payload) =>
 export const deleteModule = async (id) => (await axiosClient.delete(`/admin/modules/${id}`)).data;
 export const createLesson = async (payload) =>
   (await axiosClient.post('/admin/lessons', payload)).data.lesson;
+export const updateLesson = async (id, payload) =>
+  (await axiosClient.patch(`/admin/lessons/${id}`, payload)).data.lesson;
 export const deleteLesson = async (id) => (await axiosClient.delete(`/admin/lessons/${id}`)).data;
+
+// Lesson PDF (admin)
+export const uploadLessonPdf = async (lessonId, file) => {
+  const fd = new FormData();
+  fd.append('pdf', file);
+  const { data } = await axiosClient.post(`/admin/lessons/${lessonId}/pdf`, fd, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return data.lesson;
+};
+export const deleteLessonPdf = async (lessonId) =>
+  (await axiosClient.delete(`/admin/lessons/${lessonId}/pdf`)).data.lesson;
+
+// Lesson questions (admin — includes answers)
+export const getLessonQuestions = async (lessonId) =>
+  (await axiosClient.get(`/admin/lessons/${lessonId}/questions`)).data.questions;
+export const createQuestion = async (lessonId, payload) =>
+  (await axiosClient.post(`/admin/lessons/${lessonId}/questions`, payload)).data.question;
+export const deleteQuestion = async (id) => (await axiosClient.delete(`/admin/questions/${id}`)).data;
+
+// Fetch a course's modules+lessons (reuse student detail endpoint)
+export const getLessonMeta = async (courseId, lessonId) => {
+  const { data } = await axiosClient.get(`/courses/${courseId}`);
+  return data.lessons.find((l) => String(l._id) === String(lessonId));
+};
