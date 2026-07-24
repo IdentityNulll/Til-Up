@@ -1,0 +1,27 @@
+# Netlify config for the TilUp client (Vite + React + React Router SPA).
+# This file lives at the root of the deployed repo (the `client/` folder).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Set these in Netlify → Site configuration → Environment variables (not here),
+# then trigger a "Clear cache and deploy" so Vite bakes them into the build:
+#   VITE_API_URL           = https://til-up-production.up.railway.app/api
+#   VITE_GOOGLE_CLIENT_ID  = <your Google OAuth client id>.apps.googleusercontent.com
+
+# SPA fallback: every route serves index.html so client-side routing works on
+# refresh and direct links (/courses, /courses/:id, /admin, ...).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Long-cache the fingerprinted build assets (safe: filenames change per build).
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

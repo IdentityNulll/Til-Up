@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL:  'https://til-up-production.up.railway.app/api',
+  baseURL: 'https://til-up-production.up.railway.app/api',
 });
 
 axiosClient.interceptors.request.use((config) => {
